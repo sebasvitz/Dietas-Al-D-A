@@ -2,8 +2,7 @@
 
 **Curso:** Ingeniería de Requisitos · **Prototipado:** Análisis de Caso
 **Autor(es):** Sebastián Villa
-**Prototipo desplegado:** 
-https://dietas-al-dia-iota.vercel.app
+**Prototipo desplegado:** https://dietas-al-dia-iota.vercel.app
 **Objetivo del prototipo:** ver la sección «Objetivo del prototipo» del [README](README.md).
 
 ---
@@ -71,13 +70,22 @@ Se aplicó a los RF de prioridad Alta (RF-01 a RF-08), con los atributos de cali
 | C10 | Activar «Mostrar solo seguras» con Ana | Solo queda la dieta hipocalórica | RF-09 / CA4 | Cumple |
 | C11 | Confirmar una dieta y revisar el historial | Aparece la asignación con fecha, paciente, dieta, alertas y justificación | RF-11 / CA2 | Cumple |
 
+**CA4 · Tiempo de un usuario nuevo (90 s).** El prototipo abre directamente en la tarea de asignación y ofrece el acceso «Entrar con datos demo». Con `?eval=1` en la URL aparece un cronómetro que se detiene al confirmar. Tarea: *«Asigna una dieta segura a Ana García para su obesidad»*, sin ayuda.
 
-## 4. Conclusión: ¿queda validado o se reformula?
+| Usuario | ¿Usó ayuda? | Tiempo (s) | ¿Eligió una dieta segura? | ¿Omitió alguna alerta? | Observaciones |
+|---|---|---|---|---|---|
+| U1 | _(completar)_ | 7.8 | Sí | No (0 alertas en la dieta elegida) | N/A |
+| U2 | _(completar)_ | 22.1 | Sí | No (0 alertas en la dieta elegida) | N/A |
+| U3 | _(completar)_ | 32.4 | **No**: eligió una dieta con incompatibilidad | No: la única alerta se mostró, se reconoció y se justificó | Omitirá el pan |
+
+**Resultados.** Los 3 usuarios terminaron la tarea en menos de 90 s (promedio 20.8 s, máximo 32.4 s). Ninguna alerta pasó inadvertida: la única que apareció (U3) fue reconocida antes de confirmar. Dos de los tres eligieron una dieta segura; U3 eligió una con incompatibilidad, aunque la dieta segura aparecía primera en el listado.
+
+## 5. Conclusión: ¿queda validado o se reformula?
 
 **La EPC 28 queda validada con ajustes de redacción en sus criterios de aceptación.**
 
 - **CA1, CA2 y CA3** se cumplen en el prototipo (casos C1 a C11).
-- **CA4** se puede probar con el prototipo; su cumplimiento depende de los resultados de la tabla de la sección 4.
+- **CA4** se cumple parcialmente en la prueba con 3 usuarios (sección 4): el tiempo se cumplió en 3 de 3 y ninguna alerta se pasó por alto, pero 1 de 3 no eligió una dieta segura. En ese caso el sistema funcionó como se diseñó (mostró la alerta y exigió reconocimiento y justificación), aunque el resultado no coincide con «elige una dieta segura». Con una muestra tan pequeña no se puede generalizar.
 - El requisito no se descarta, pero la EPC original tenía ambigüedades y casos sin cubrir. Se resolvieron así:
 
 | Ambigüedad o vacío | Ajuste |
@@ -97,4 +105,6 @@ Se aplicó a los RF de prioridad Alta (RF-01 a RF-08), con los atributos de cali
 - **CA3.** El médico abre la ficha técnica completa de cualquier dieta, con o sin alerta, mientras el resumen del paciente permanece visible.
 - **CA4.** Un usuario que no ha usado el sistema, sin ayuda, elige y confirma una dieta segura en menos de 90 segundos, y ninguna dieta con alerta se confirma sin la acción explícita requerida.
 
-**Limitaciones.** Los datos son ficticios y viven en memoria; el acceso es simulado; el catálogo cubre pocos pacientes y dietas; los resultados de CA4 dependen de una muestra pequeña de usuarios.
+**Posible mejora derivada de la prueba.** Destacar visualmente la primera dieta segura del listado (por ejemplo, con la etiqueta «Recomendada») para que un usuario nuevo la identifique sin revisar todas las tarjetas. No está implementada en esta versión.
+
+**Limitaciones.** Los datos son ficticios y viven en memoria; el acceso es simulado; el catálogo cubre pocos pacientes y dietas; la prueba de CA4 se hizo con solo 3 usuarios.
