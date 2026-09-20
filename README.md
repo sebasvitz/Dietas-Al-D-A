@@ -80,5 +80,35 @@ npm run preview  # previsualizar build
 npm run lint     # validación de lint
 npm run test     # pruebas de la lógica de conflictos (Node, sin dependencias)
 ```
+## Evaluación y pruebas
 
-> Más adelante se puede desplegar en Vercel sin cambiar esta guía local.
+El prototipo se puede evaluar de cuatro formas. Los resultados y el análisis están en [INFORME.md](INFORME.md).
+
+### 1. Modo evaluación (pruebas con usuarios · CA4)
+
+Abre la app con `?eval=1` al final de la URL:
+
+- Despliegue: https://dietas-al-dia-iota.vercel.app/?eval=1
+- Local: http://localhost:5173/?eval=1
+
+Aparece un panel oscuro con la tarea *«Asignar una dieta segura a Ana García para su obesidad»*. El usuario pulsa **Iniciar tarea** y el cronómetro se detiene al confirmar una asignación. El panel muestra el tiempo, si quedó dentro de 90 s, el estado de la dieta elegida y las alertas mostradas y reconocidas, y permite copiar el resultado en JSON. No guarda nada: al recargar se reinicia, y sin `?eval=1` el panel no aparece.
+
+### 2. Pruebas automáticas
+
+```bash
+cd web
+npm test
+```
+
+Ejecuta 15 pruebas (Node, sin dependencias adicionales) de la lógica de cruce de alergias, el orden de las dietas, las reglas de confirmación, el cálculo del IMC y la consistencia de los datos demo.
+
+### 3. Lint y compilación
+
+```bash
+npm run lint
+npm run build
+```
+
+### 4. Casos de prueba manuales
+
+Los casos C1 a C11, con datos, resultado esperado y resultado obtenido, están en la sección 4 de [INFORME.md](INFORME.md). Se ejecutan sobre los pacientes de la tabla de datos demo.
