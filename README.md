@@ -10,45 +10,63 @@ Prototipo de alta fidelidad para médicos nutricionistas.
 ## Ejecutar en local
 
 ```bash
-cd /home/runner/work/Dietas-Al-D-A/Dietas-Al-D-A/web
+cd web
 npm install
 npm run dev
 ```
 
 Luego abre en el navegador la URL que muestra Vite (normalmente `http://localhost:5173`).
 
+## Objetivo del prototipo
+
+Validar que un médico de Nutrición puede consultar las dietas compatibles con el diagnóstico de un paciente, identificar sin ambigüedad las que contienen alimentos que chocan con sus alergias o incompatibilidades, y asignar una dieta segura sin cruzar manualmente la historia clínica con el catálogo.
+
 ## Datos demo para probar el flujo
 
-El registro es simulado. Usa estos datos para entrar:
+Todos los datos son **ficticios**. El acceso es simulado (no se conecta con Google): usa el botón **Entrar con datos demo** o escribe `Dr. Demo` / `demo@gmail.com`.
 
-- **Nombre:** `Dr. Demo`
-- **Correo Google:** `demo@gmail.com`
-
-La aplicación incluye estos datos dummy precargados:
-
-- **Paciente:** Ana García
-- **Datos:** 39 años · Femenino
-- **Peso y talla:** 92 kg · 1.64 m
-- **Alergia:** Pescado
-- **Incompatibilidad:** Gluten
-- **Enfermedad asociada:** Obesidad grado I
-- **Dieta segura:** Dieta hipocalórica para obesidad
-- **Dieta incompatible para probar la alerta:** Dieta para obesidad con pescado
+| Paciente              | Enfermedades                            | Alergias       | Incompatibilidades | Qué permite probar                                                                                                 |
+| --------------------- | --------------------------------------- | -------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| Ana García (39, F)    | Obesidad grado I, Hipertensión arterial | Pescado        | Gluten             | Varios diagnósticos; dieta segura, con incompatibilidad y con alergia; estado vacío (Hipertensión no tiene dietas) |
+| Carlos Ruiz (55, M)   | Diabetes tipo 2                         | Frutos secos   | —                  | Dieta segura vs. dieta con alergia                                                                                 |
+| Marta Londoño (28, F) | Anemia ferropénica                      | —              | Lácteos            | Solo incompatibilidad                                                                                              |
+| Luis Pérez (71, M)    | Desnutrición proteico-calórica          | No registradas | —                  | Aviso de alergias sin verificar                                                                                    |
 
 ### Recorrido recomendado
 
-1. Regístrate con los datos demo.
-2. Abre **Diagnóstico y Asignación**.
-3. Selecciona a **Ana García**. El diagnóstico se completa automáticamente.
-4. Selecciona **Dieta para obesidad con pescado** para ver la alerta y comprobar que no se puede confirmar.
-5. Selecciona **Dieta hipocalórica para obesidad** para consultar la ficha técnica y registrarla.
+1. Entra con **Entrar con datos demo**. La app abre en **Asignar tratamiento**.
+2. Selecciona a **Ana García**: aparecen sus dietas para Obesidad grado I, con las seguras primero y las alertas visibles en cada tarjeta.
+3. Abre **Dieta para obesidad con pescado**: se ven la ficha técnica completa y la alerta de alergia; la asignación queda bloqueada.
+4. Abre **Dieta mediterránea baja en calorías**: solo se puede confirmar tras reconocer la incompatibilidad y escribir una justificación.
+5. Abre **Dieta hipocalórica para obesidad** (segura) y pulsa **Confirmar asignación de dieta**.
+6. Cambia el diagnóstico a **Hipertensión arterial** para ver el estado vacío.
 
-Los pacientes, dietas y diagnósticos añadidos durante la sesión se guardan únicamente en memoria. Al recargar o cerrar la aplicación se eliminan y vuelven a aparecer los datos demo iniciales.
+### Reglas de confirmación
+
+| Estado de la dieta                   | Comportamiento                                                                  |
+| ------------------------------------ | ------------------------------------------------------------------------------- |
+| Segura                               | Se puede confirmar directamente                                                 |
+| Incompatibilidad                     | Exige marcar «He revisado la alerta» y una justificación (mínimo 10 caracteres) |
+| Alergia                              | Bloqueada: no se puede confirmar                                                |
+| Paciente con alergias no registradas | Exige marcar «Verifiqué las alergias con el paciente»                           |
+
+### Modo evaluación (pruebas con usuarios)
+
+Abre la app con `?eval=1` en la URL (por ejemplo `http://localhost:5173/?eval=1`). Aparece un panel con la tarea de la prueba, un cronómetro que se detiene al confirmar una asignación y un botón para copiar el resultado en JSON.
+
+### Requisitos funcionales en la interfaz
+
+Los elementos de la vista de asignación llevan el atributo `data-rf` con el ID del requisito (RF-01 a RF-11).
+
+### Limitaciones
+
+- Datos ficticios; el acceso es simulado.
+- Pacientes, dietas y asignaciones añadidos durante la sesión se guardan solo en memoria: al recargar vuelven los datos demo.
 
 ## Build local de producción
 
 ```bash
-cd /home/runner/work/Dietas-Al-D-A/Dietas-Al-D-A/web
+cd web
 npm run build
 npm run preview
 ```
@@ -60,6 +78,7 @@ npm run dev      # entorno local
 npm run build    # build de producción
 npm run preview  # previsualizar build
 npm run lint     # validación de lint
+npm run test     # pruebas de la lógica de conflictos (Node, sin dependencias)
 ```
 
 > Más adelante se puede desplegar en Vercel sin cambiar esta guía local.
