@@ -115,11 +115,25 @@ const initialData = {
   diets: [
     {
       id: crypto.randomUUID(),
-      nombre: 'Dieta hipocalórica balanceada',
+      nombre: 'Dieta hipocalórica para obesidad',
       objetivos: 'Disminución progresiva de peso.',
       definicion: 'Restricción energética moderada con control de macros.',
       calorias: '1500 kcal/día',
-      componentes: 'Verduras, proteína magra, cereales integrales.',
+      componentes: 'Verduras, pollo, arroz integral y aceite de oliva.',
+      ingesta: '5 tomas diarias',
+      via: 'Oral',
+      duracion: '12 semanas',
+      dosificacion: 'Porciones controladas',
+      pauta: 'Plan semanal',
+      suplementos: 'Vitamina D',
+    },
+    {
+      id: crypto.randomUUID(),
+      nombre: 'Dieta para obesidad con pescado',
+      objetivos: 'Pérdida de peso con aporte de omega-3.',
+      definicion: 'Plan hipocalórico que incorpora pescado azul.',
+      calorias: '1600 kcal/día',
+      componentes: 'Verduras, pescado, avena y aceite de oliva.',
       ingesta: '5 tomas diarias',
       via: 'Oral',
       duracion: '12 semanas',
@@ -139,7 +153,19 @@ const initialData = {
       objetivo: 'Reducir 5%-10% del peso corporal.',
     },
   ],
-  records: [],
+  records: [
+    {
+      id: crypto.randomUUID(),
+      nombre: 'Ana García',
+      datos: '39 años · Femenino',
+      peso: '92 kg',
+      talla: '1.64 m',
+      incompatibilidades: 'Gluten',
+      alergias: 'Pescado',
+      antecedentes: 'Diabetes tipo 2 materna',
+      asociadas: 'Obesidad grado I',
+    },
+  ],
 }
 
 const createFormState = (fields) =>
@@ -269,15 +295,36 @@ function App() {
   )
 
   const selectedCondition = conditions.find((condition) => condition.id === assignment.conditionId)
+  const selectedPatient = records.find((record) => record.id === assignment.recordId)
+  const selectedDiet = diets.find((diet) => diet.id === assignment.dietId)
+
+  const splitTerms = (value = '') =>
+    value
+      .toLowerCase()
+      .split(/[,;]+/)
+      .map((term) => term.trim())
+      .filter(Boolean)
+
+  const getDietConflicts = (patient, diet) => {
+    if (!patient || !diet) {
+      return []
+    }
+    const restrictions = [...splitTerms(patient.alergias), ...splitTerms(patient.incompatibilidades)]
+    const components = splitTerms(diet.componentes)
+    return restrictions.filter((restriction) =>
+      components.some((component) => component.includes(restriction) || restriction.includes(component)),
+    )
+  }
 
   const suggestedDiets = useMemo(() => {
     if (!selectedCondition) {
       return []
     }
-    // Sugerencia simple basada en coincidencia de términos entre diagnóstico y objetivos de dieta.
-    const query = `${selectedCondition.nombre} ${selectedCondition.tratamiento}`.toLowerCase()
-    return diets.filter((diet) => `${diet.nombre} ${diet.objetivos}`.toLowerCase().includes(query.split(' ')[0]))
+    const conditionTerm = selectedCondition.nombre.toLowerCase().split(' ')[0]
+    return diets.filter((diet) => diet.nombre.toLowerCase().includes(conditionTerm))
   }, [diets, selectedCondition])
+
+  const selectedDietConflicts = getDietConflicts(selectedPatient, selectedDiet)
 
   const handleRegister = () => {
     const email = loginForm.email.trim().toLowerCase()
@@ -295,21 +342,17 @@ function App() {
   }
 
   const handleSaveDiagnosis = () => {
-    if (!assignment.recordId || !assignment.conditionId || !assignment.dietId) {
+    if (!assignment.recordId || !assignment.conditionId || !assignment.dietId || selectedDietConflicts.length > 0) {
       return
     }
-
-    const patient = records.find((record) => record.id === assignment.recordId)
-    const condition = conditions.find((item) => item.id === assignment.conditionId)
-    const diet = diets.find((item) => item.id === assignment.dietId)
 
     setDiagnoses((current) => [
       ...current,
       {
         id: crypto.randomUUID(),
-        patient: patient?.nombre,
-        condition: condition?.nombre,
-        diet: diet?.nombre,
+        patient: selectedPatient?.nombre,
+        condition: selectedCondition?.nombre,
+        diet: selectedDiet?.nombre,
         observaciones: assignment.observaciones,
       },
     ])
@@ -431,9 +474,19 @@ function App() {
                 <span>Paciente</span>
                 <Select
                   value={assignment.recordId}
-                  onChange={(event) =>
-                    setAssignment((current) => ({ ...current, recordId: event.target.value }))
-                  }
+                  onChange={(event) => {
+                    const recordId = event.target.value
+                    const record = records.find((item) => item.id === recordId)
+                    const condition = conditions.find((item) =>
+                      record?.asociadas?.toLowerCase().includes(item.nombre.toLowerCase()),
+                    )
+                    setAssignment((current) => ({
+                      ...current,
+                      recordId,
+                      conditionId: condition?.id || '',
+                      dietId: '',
+                    }))
+                  }}
                 >
                   <option value="">Seleccione paciente</option>
                   {records.map((record) => (
@@ -448,7 +501,7 @@ function App() {
                 <Select
                   value={assignment.conditionId}
                   onChange={(event) =>
-                    setAssignment((current) => ({ ...current, conditionId: event.target.value }))
+                    setAssignment((current) => ({ ...current, conditionId: event.target.value, dietId: '' }))
                   }
                 >
                   <option value="">Seleccione diagnóstico</option>
@@ -468,7 +521,7 @@ function App() {
                   }
                 >
                   <option value="">Seleccione dieta</option>
-                  {diets.map((diet) => (
+                  {(suggestedDiets.length > 0 ? suggestedDiets : diets).map((diet) => (
                     <option key={diet.id} value={diet.id}>
                       {diet.nombre}
                     </option>
@@ -486,7 +539,40 @@ function App() {
                 />
               </Field>
             </Grid>
-            <PrimaryButton type="button" onClick={handleSaveDiagnosis}>
+            {selectedPatient && (
+              <InfoBox>
+                <strong>Paciente seleccionado:</strong> {selectedPatient.nombre}
+                <br />
+                <strong>Restricciones activas:</strong>{' '}
+                {[selectedPatient.alergias, selectedPatient.incompatibilidades].filter(Boolean).join(' · ') || 'Ninguna registrada'}
+              </InfoBox>
+            )}
+
+            {selectedDiet && selectedDietConflicts.length > 0 && (
+              <AlertBox role="alert">
+                <strong>ALERTA: dieta incompatible</strong>
+                <p>
+                  No se puede confirmar porque contiene: {selectedDietConflicts.join(', ')}.
+                </p>
+              </AlertBox>
+            )}
+
+            {selectedDiet && selectedDietConflicts.length === 0 && (
+              <DietDetail>
+                <h3>Ficha técnica · {selectedDiet.nombre}</h3>
+                {configuration.diets.fields.slice(1).map((field) => (
+                  <Line key={field.name}>
+                    <strong>{field.label}:</strong> {selectedDiet[field.name]}
+                  </Line>
+                ))}
+              </DietDetail>
+            )}
+
+            <PrimaryButton
+              type="button"
+              onClick={handleSaveDiagnosis}
+              disabled={!assignment.recordId || !assignment.conditionId || !assignment.dietId || selectedDietConflicts.length > 0}
+            >
               Registrar diagnóstico
             </PrimaryButton>
 
@@ -607,6 +693,11 @@ const PrimaryButton = styled.button`
   border-radius: 9px;
   padding: 0.65rem 1rem;
   cursor: pointer;
+
+  &:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+  }
 `
 
 const List = styled.div`
@@ -666,6 +757,32 @@ const InfoBox = styled.div`
   background: #ecfdf5;
   padding: 0.75rem;
   color: #134e4a;
+`
+
+const AlertBox = styled.div`
+  margin-top: 1rem;
+  border: 2px solid #b91c1c;
+  border-radius: 8px;
+  background: #fef2f2;
+  padding: 0.85rem;
+  color: #7f1d1d;
+
+  p {
+    margin: 0.35rem 0 0;
+  }
+`
+
+const DietDetail = styled.div`
+  margin-top: 1rem;
+  border: 1px solid #99f6e4;
+  border-radius: 8px;
+  background: #f0fdfa;
+  padding: 0.85rem;
+
+  h3 {
+    margin: 0 0 0.6rem;
+    color: #115e59;
+  }
 `
 
 export default App
