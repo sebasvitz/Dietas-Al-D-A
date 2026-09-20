@@ -1,16 +1,21 @@
-# React + Vite
+# Dietas al Día (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+App React + styled-components para gestión nutricional clínica sin backend.
 
-Currently, two official plugins are available:
+## Funcionalidades MVP
+- Registro de usuario limitado a correo Google (@gmail.com).
+- RF1: Catálogo de alimentos.
+- RF2: Gestión de nutrientes.
+- RF3: Vitaminas y minerales.
+- RF4: Dietas prediseñadas.
+- RF5: Enfermedades nutricionales.
+- RF6: Historia clínica de pacientes.
+- Flujo de diagnóstico y asignación de dieta.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Scripts
+```bash
+npm run dev
+npm run build
+npm run preview
+npm run lint
+```
