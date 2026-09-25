@@ -18,7 +18,7 @@ artefactos_relacionados: [SRS-001, UML-001]
 
 A continuación se detalla el modelo de entidad-relación diseñado para la persistencia de datos relacional[cite: 12]:
 
-![Modelo Entidad-Relación - Portal de Mudanzas](./ER.png)
+![Modelo Entidad-Relación - Portal de Mudanzas](./assets/ER.png)
 
 ---
 

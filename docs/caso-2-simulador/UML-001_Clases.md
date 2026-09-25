@@ -18,7 +18,7 @@ artefactos_relacionados: [SRS-001, ERD-001, UML-002]
 
 A continuación se presenta el modelo conceptual de clases del dominio, representando las entidades principales (*Cliente*, *Solicitud*, *DetalleSolicitud*, *EmpresaMudanza*, *Empleado*, *OfertaServicio*, *Poblacion*, *Vehiculo*, *PlusPeso*, *TipoTransporte*) y sus relaciones con multiplicidad[cite: 11]:
 
-![Diagrama de Clases - Portal de Mudanzas](./diagrama_clases.png)
+![Diagrama de Clases - Portal de Mudanzas](./assets/diagrama_clases.png)
 
 ### Entidades y Atributos Clave
 * **`Cliente`:** `cc`, `codigo`, `direccion`, `nombreCompleto`, `telefono`[cite: 11].

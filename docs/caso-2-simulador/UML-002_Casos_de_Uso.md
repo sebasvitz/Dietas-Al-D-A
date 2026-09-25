@@ -18,7 +18,7 @@ artefactos_relacionados: [SRS-001, UML-001]
 
 A continuación se detallan las interacciones de los actores principales (*Cliente* y *Gestor de Empresa de Mudanza*) con el sistema[cite: 10]:
 
-![Casos de Uso - Portal de Mudanzas](./diagrama_casos.png)
+![Casos de Uso - Portal de Mudanzas](./assets/diagrama_casos.png)
 
 ### Actores y Funcionalidades Principales
 
