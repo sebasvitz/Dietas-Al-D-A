@@ -15,6 +15,17 @@ artefactos_relacionados: [PVB-001, PBL-001, US-001, SRS-001, UML-001, ERD-001, U
 **Prototipo Desplegado (Caso 3):** https://dietas-al-dia-iota.vercel.app
 
 ---
+## Contenido
+
+- [1. Portafolio de Ingeniería de Requisitos](...)
+- [2. Casos de estudio](...)
+  - Caso 1 — Aerolínea
+  - Caso 2 — Simulador
+  - Caso 3 — Dietas Al Día
+- [3. Aplicación Dietas Al Día](...)
+- [4. Ejecución local](...)
+- [5. Pruebas](...)
+- [6. Lecciones aprendidas](...)
 
 ## 📚 Estructura e Inventario del Repositorio
 
