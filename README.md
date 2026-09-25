@@ -1,3 +1,47 @@
+---
+id_unico: PORTFOLIO-001
+version: v1.0
+estado_final: Aprobado
+autor_revisor: Sebastián Villa Vargas
+fecha_cierre: 2026-09-25
+artefactos_relacionados: [PVB-001, PBL-001, US-001, SRS-001, UML-001, ERD-001, UML-002, TC-001, PROTO-001, TRACE-001]
+---
+
+# Portafolio de Ingeniería de Requisitos — Portafolio Final del Curso
+
+**Autor:** Sebastián Villa Vargas  
+**Asignatura:** Ingeniería de Requisitos · UPB  
+**Repositorio GitHub:** https://github.com/sebasvitz/Dietas-Al-D-A.git  
+**Prototipo Desplegado (Caso 3):** https://dietas-al-dia-iota.vercel.app
+
+---
+
+## 📚 Estructura e Inventario del Repositorio
+
+El repositorio está organizado en tres grandes casos de estudio y el código fuente ejecutable, diseñado para ser navegable de forma autónoma:
+
+```text
+Dietas-Al-D-A/
+├── README.md                   <-- Presentación global, lecciones aprendidas y guía de ejecución
+├── docs/
+│   ├── caso-1-aerolinea/       <-- Caso 1: Empresa de Operaciones Aéreas (AeroAlign)
+│   │   ├── PVB-001_Product_Vision_Board.md
+│   │   ├── PBL-001_Product_Backlog.md
+│   │   └── US-001_Historias_de_Usuario.md
+│   │
+│   ├── caso-2-simulador/       <-- Caso 2: Portal de Mudanzas / Simulador de Conducción
+│   │   ├── SRS-001_Software_Requirements_Specification.md
+│   │   ├── UML-001_Diagrama_de_Clases.md
+│   │   ├── ERD-001_Modelo_Entidad_Relacion.md
+│   │   ├── UML-002_Casos_de_Uso.md
+│   │   ├── TC-001_Test_Cases.md
+│   │   └── assets/             <-- Diagramas e imágenes y archivo de Enterprise Architect (.qea)
+│   │
+│   └── caso-3-dietas/          <-- Caso 3: Aplicación Dietas Al Día (EPC 28)
+│       ├── PROTO-001_Informe_Prototipado_EPC28.md
+│       └── TRACE-001_Matriz_Trazabilidad_EPC28.xlsx
+│
+└── web/                        <-- Código fuente React 19 + Vite de Dietas Al Día
 # Dietas al Día
 
 Prototipo de alta fidelidad para médicos nutricionistas.
@@ -112,3 +156,38 @@ npm run build
 ### 4. Casos de prueba manuales
 
 Los casos C1 a C11, con datos, resultado esperado y resultado obtenido, están en la sección 4 de [INFORME.md](INFORME.md). Se ejecutan sobre los pacientes de la tabla de datos demo.
+
+### 5. Lecciones aprendidas
+# 1. ¿Qué práctica de ingeniería de requisitos funciona y por qué debería usarse?
+
+## Respuesta
+
+La práctica fundamental que mejor funciona en el desarrollo de un proyecto es la **combinación del Product Vision Board con la definición y desglose en Épicas e Historias de Usuario**:
+
+- **Descomposición Modular del Alcance:** Aporta un gran valor al tomar un sistema grande, pesado y complejo, y dividirlo en pedazos cortos y ligeros (*incrementos*). Esto permite al equipo entender la lógica interna del negocio paso a paso, desde adentro hacia afuera.
+
+- **Validación Mediante Prototipado Claro:** Tener historias de usuario bien acotadas y priorizadas facilita el paso hacia la creación de un prototipo que permite ver la funcionalidad de las cosas de forma clara e intuitiva. Ver la funcionalidad plasmada en una interfaz viva ayuda a validar las reglas de negocio con los usuarios finales antes de invertir esfuerzo en código de producción.
+
+# 2. ¿Qué técnica de gestión de requisitos tomó/falló y cómo se podría detectar?
+
+## Respuesta
+
+Falló el uso de **software de modelado pesado e inflexible** junto con la **burocracia documental tradicional de las Solicitudes de Cambio (RFC)**:
+
+- **Fricción en el Modelado:** El uso de herramientas de modelado rígidas o pesadas resulta enredado y poco ágil. Aunque el diseño de diagramas es una técnica muy útil, existen opciones modernas más flexibles y ágiles para transmitir la información con claridad y alcanzar resultados equivalentes.
+
+- **Sobrecarga por Solicitudes de Cambio (RFC):** El documento de solicitud de cambios es importante para la trazabilidad, pero gestionarlo en formatos tradicionales se convierte en una carga temporal que frena el desarrollo continuo.
+
+- **Cómo se detectó:** Se identificó por el retraso en el ritmo de iteración y la fricción del equipo ante la documentación. Se puede optimizar implementando un flujo más ágil (por ejemplo, gestionando cambios mediante *issues* y *Pull Requests* etiquetados en GitHub) para mantener la documentación al día sin detener el avance del proyecto.
+
+# 3. ¿Qué haríamos diferente en el proceso de gestión de requisitos desde el inicio?
+
+## Respuesta
+
+Desde el inicio del proyecto, implementaría una **formulación temprana de la visión y del alcance de la documentación**, respaldada por **herramientas de modelado ágiles y prototipado exploratorio**:
+
+- **Claridad Temprana del Alcance:** Utilizaría el **Product Vision Board** desde la fase inicial. Resulta una herramienta maravillosa para poner un punto de partida claro en cualquier proyecto, ya que permite desglosar la información de manera ágil y definir el alcance antes de la especificación detallada.
+
+- **Herramientas de Diagramación más Prácticas:** Para proyectos con arquitecturas complejas (como el *Simulador de Conducción*), optaría por motores de diagramación más prácticos, visuales y fáciles de entender por todo el equipo.
+
+- **Prototipos Funcionales Tempranos:** Incorporaría prototipos ya funcionales desde las primeras etapas. Tener un vistazo a futuro de cómo pueden ser las soluciones que el proyecto necesitará permite anticipar requerimientos reales y ajustar el rumbo a tiempo con base en la experiencia directa.
