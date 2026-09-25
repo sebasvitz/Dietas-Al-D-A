@@ -17,15 +17,29 @@ artefactos_relacionados: [PVB-001, PBL-001, US-001, SRS-001, UML-001, ERD-001, U
 ---
 ## Contenido
 
-- [1. Portafolio de Ingeniería de Requisitos](...)
-- [2. Casos de estudio](...)
-  - Caso 1 — Aerolínea
-  - Caso 2 — Simulador
-  - Caso 3 — Dietas Al Día
-- [3. Aplicación Dietas Al Día](...)
-- [4. Ejecución local](...)
-- [5. Pruebas](...)
-- [6. Lecciones aprendidas](...)
+- [Portafolio de Ingeniería de Requisitos — Portafolio Final del Curso](#portafolio-de-ingeniería-de-requisitos--portafolio-final-del-curso)
+- [Estructura e inventario del repositorio](#-estructura-e-inventario-del-repositorio)
+- [Dietas al Día](#dietas-al-día)
+  - [Requisitos para ejecutar en local](#requisitos-para-ejecutar-en-local)
+  - [Ejecutar en local](#ejecutar-en-local)
+  - [Objetivo del prototipo](#objetivo-del-prototipo)
+  - [Datos demo para probar el flujo](#datos-demo-para-probar-el-flujo)
+    - [Recorrido recomendado](#recorrido-recomendado)
+    - [Reglas de confirmación](#reglas-de-confirmación)
+    - [Modo evaluación](#modo-evaluación-pruebas-con-usuarios)
+    - [Requisitos funcionales en la interfaz](#requisitos-funcionales-en-la-interfaz)
+    - [Limitaciones](#limitaciones)
+  - [Build local de producción](#build-local-de-producción)
+  - [Scripts útiles](#scripts-útiles)
+- [Evaluación y pruebas](#evaluación-y-pruebas)
+  - [Modo evaluación](#1-modo-evaluación-pruebas-con-usuarios--ca4)
+  - [Pruebas automáticas](#2-pruebas-automáticas)
+  - [Lint y compilación](#3-lint-y-compilación)
+  - [Casos de prueba manuales](#4-casos-de-prueba-manuales)
+- [Lecciones aprendidas](#lecciones-aprendidas)
+  - [Práctica de ingeniería de requisitos que funciona](#1-qué-práctica-de-ingeniería-de-requisitos-funciona-y-por-qué-debería-usarse)
+  - [Técnica de gestión de requisitos que falló](#2-qué-técnica-de-gestión-de-requisitos-tomófalló-y-cómo-se-podría-detectar)
+  - [Mejoras desde el inicio del proceso](#3-qué-haríamos-diferente-en-el-proceso-de-gestión-de-requisitos-desde-el-inicio)
 
 ## 📚 Estructura e Inventario del Repositorio
 
@@ -169,9 +183,9 @@ npm run build
 
 Los casos C1 a C11, con datos, resultado esperado y resultado obtenido, están en la sección 4 de [PROTO-001_Informe_Prototipado_EPC28.md](docs/caso-3-dietas/PROTO-001_Informe_Prototipado_EPC28.md). Se ejecutan sobre los datos demo y comparan el comportamiento con la lógica de negocio.
 
-### 5. Lecciones aprendidas
+## 5. Lecciones aprendidas
 
-# 1. ¿Qué práctica de ingeniería de requisitos funciona y por qué debería usarse?
+### 1. ¿Qué práctica de ingeniería de requisitos funciona y por qué debería usarse?
 
 ## Respuesta
 
@@ -180,7 +194,7 @@ La práctica fundamental que mejor funciona en el desarrollo de un proyecto es l
 - **Descomposición Modular del Alcance:** Aporta un gran valor al tomar un sistema grande, pesado y complejo, y dividirlo en pedazos cortos y ligeros (*incrementos*). Esto permite al equipo entender mejor el problema y priorizar entregas.
 - **Validación Mediante Prototipado Claro:** Tener historias de usuario bien acotadas y priorizadas facilita el paso hacia la creación de un prototipo que permite ver la funcionalidad de las cosas de forma tangible.
 
-# 2. ¿Qué técnica de gestión de requisitos tomó/falló y cómo se podría detectar?
+### 2. ¿Qué técnica de gestión de requisitos tomó/falló y cómo se podría detectar?
 
 ## Respuesta
 
@@ -190,7 +204,7 @@ Falló el uso de **software de modelado pesado e inflexible** junto con la **bur
 - **Sobrecarga por Solicitudes de Cambio (RFC):** El documento de solicitud de cambios es importante para la trazabilidad, pero gestionarlo en formatos tradicionales se convierte en una carga temporal y de coordinación.
 - **Cómo se detectó:** Se identificó por el retraso en el ritmo de iteración y la fricción del equipo ante la documentación. Se puede optimizar implementando un flujo más ágil.
 
-# 3. ¿Qué haríamos diferente en el proceso de gestión de requisitos desde el inicio?
+### 3. ¿Qué haríamos diferente en el proceso de gestión de requisitos desde el inicio?
 
 ## Respuesta
 
