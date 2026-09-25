@@ -126,7 +126,7 @@ npm run test     # pruebas de la lógica de conflictos (Node, sin dependencias)
 ```
 ## Evaluación y pruebas
 
-El prototipo se puede evaluar de cuatro formas. Los resultados y el análisis están en [INFORME.md](INFORME.md).
+El prototipo se puede evaluar de cuatro formas. Los resultados y el análisis están en [PROTO-001_Informe_Prototipado_EPC28.md](PROTO-001_Informe_Prototipado_EPC28.md).
 
 ### 1. Modo evaluación (pruebas con usuarios · CA4)
 
@@ -155,7 +155,7 @@ npm run build
 
 ### 4. Casos de prueba manuales
 
-Los casos C1 a C11, con datos, resultado esperado y resultado obtenido, están en la sección 4 de [INFORME.md](INFORME.md). Se ejecutan sobre los pacientes de la tabla de datos demo.
+Los casos C1 a C11, con datos, resultado esperado y resultado obtenido, están en la sección 4 de [PROTO-001_Informe_Prototipado_EPC28.md](PROTO-001_Informe_Prototipado_EPC28.md). Se ejecutan sobre los pacientes de la tabla de datos demo.
 
 ### 5. Lecciones aprendidas
 # 1. ¿Qué práctica de ingeniería de requisitos funciona y por qué debería usarse?
