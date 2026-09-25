@@ -63,18 +63,18 @@ Luego abre en el navegador la URL que muestra Vite (normalmente `http://localhos
 
 ## Objetivo del prototipo
 
-Validar que un médico de Nutrición puede consultar las dietas compatibles con el diagnóstico de un paciente, identificar sin ambigüedad las que contienen alimentos que chocan con sus alergias o incompatibilidades, y asignar una dieta segura sin cruzar manualmente la historia clínica con el catálogo.
+Validar que un médico de Nutrición puede consultar las dietas compatibles con el diagnóstico de un paciente, identificar sin ambigüedad las que contienen alimentos que chocan con sus alergias o incompatibilidades y confirmar solo las opciones seguras o debidamente revisadas.
 
 ## Datos demo para probar el flujo
 
 Todos los datos son **ficticios**. El acceso es simulado (no se conecta con Google): usa el botón **Entrar con datos demo** o escribe `Dr. Demo` / `demo@gmail.com`.
 
-| Paciente              | Enfermedades                            | Alergias       | Incompatibilidades | Qué permite probar                                                                                                 |
-| --------------------- | --------------------------------------- | -------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| Ana García (39, F)    | Obesidad grado I, Hipertensión arterial | Pescado        | Gluten             | Varios diagnósticos; dieta segura, con incompatibilidad y con alergia; estado vacío (Hipertensión no tiene dietas) |
-| Carlos Ruiz (55, M)   | Diabetes tipo 2                         | Frutos secos   | —                  | Dieta segura vs. dieta con alergia                                                                                 |
-| Marta Londoño (28, F) | Anemia ferropénica                      | —              | Lácteos            | Solo incompatibilidad                                                                                              |
-| Luis Pérez (71, M)    | Desnutrición proteico-calórica          | No registradas | —                  | Aviso de alergias sin verificar                                                                                    |
+| Paciente              | Enfermedades                            | Alergias       | Incompatibilidades | Qué permite probar                                                                                 |
+| --------------------- | --------------------------------------- | -------------- | ------------------ | -------------------------------------------------------------------------------------------------- |
+| Ana García (39, F)    | Obesidad grado I, Hipertensión arterial | Pescado        | Gluten             | Varios diagnósticos; dieta segura, con incompatibilidad y con alergia; estado vacío (Hipertensión) |
+| Carlos Ruiz (55, M)   | Diabetes tipo 2                         | Frutos secos   | —                  | Dieta segura vs. dieta con alergia                                                                |
+| Marta Londoño (28, F) | Anemia ferropénica                      | —              | Lácteos            | Solo incompatibilidad                                                                            |
+| Luis Pérez (71, M)    | Desnutrición proteico-calórica          | No registradas | —                  | Aviso de alergias sin verificar                                                                    |
 
 ### Recorrido recomendado
 
@@ -96,7 +96,7 @@ Todos los datos son **ficticios**. El acceso es simulado (no se conecta con Goog
 
 ### Modo evaluación (pruebas con usuarios)
 
-Abre la app con `?eval=1` en la URL (por ejemplo `http://localhost:5173/?eval=1`). Aparece un panel con la tarea de la prueba, un cronómetro que se detiene al confirmar una asignación y un botón para copiar el resultado en JSON.
+Abre la app con `?eval=1` en la URL (por ejemplo `http://localhost:5173/?eval=1`). Aparece un panel con la tarea de la prueba, un cronómetro que se detiene al confirmar una asignación y un botón para iniciar la tarea.
 
 ### Requisitos funcionales en la interfaz
 
@@ -124,9 +124,10 @@ npm run preview  # previsualizar build
 npm run lint     # validación de lint
 npm run test     # pruebas de la lógica de conflictos (Node, sin dependencias)
 ```
+
 ## Evaluación y pruebas
 
-El prototipo se puede evaluar de cuatro formas. Los resultados y el análisis están en [PROTO-001_Informe_Prototipado_EPC28.md](PROTO-001_Informe_Prototipado_EPC28.md).
+El prototipo se puede evaluar de cuatro formas. Los resultados y el análisis están en [PROTO-001_Informe_Prototipado_EPC28.md](docs/caso-3-dietas/PROTO-001_Informe_Prototipado_EPC28.md).
 
 ### 1. Modo evaluación (pruebas con usuarios · CA4)
 
@@ -135,7 +136,7 @@ Abre la app con `?eval=1` al final de la URL:
 - Despliegue: https://dietas-al-dia-iota.vercel.app/?eval=1
 - Local: http://localhost:5173/?eval=1
 
-Aparece un panel oscuro con la tarea *«Asignar una dieta segura a Ana García para su obesidad»*. El usuario pulsa **Iniciar tarea** y el cronómetro se detiene al confirmar una asignación. El panel muestra el tiempo, si quedó dentro de 90 s, el estado de la dieta elegida y las alertas mostradas y reconocidas, y permite copiar el resultado en JSON. No guarda nada: al recargar se reinicia, y sin `?eval=1` el panel no aparece.
+Aparece un panel oscuro con la tarea *«Asignar una dieta segura a Ana García para su obesidad»*. El usuario pulsa **Iniciar tarea** y el cronómetro se detiene al confirmar una asignación. El panel ayuda a medir tiempos y errores.
 
 ### 2. Pruebas automáticas
 
@@ -155,18 +156,18 @@ npm run build
 
 ### 4. Casos de prueba manuales
 
-Los casos C1 a C11, con datos, resultado esperado y resultado obtenido, están en la sección 4 de [PROTO-001_Informe_Prototipado_EPC28.md](PROTO-001_Informe_Prototipado_EPC28.md). Se ejecutan sobre los pacientes de la tabla de datos demo.
+Los casos C1 a C11, con datos, resultado esperado y resultado obtenido, están en la sección 4 de [PROTO-001_Informe_Prototipado_EPC28.md](docs/caso-3-dietas/PROTO-001_Informe_Prototipado_EPC28.md). Se ejecutan sobre los datos demo y comparan el comportamiento con la lógica de negocio.
 
 ### 5. Lecciones aprendidas
+
 # 1. ¿Qué práctica de ingeniería de requisitos funciona y por qué debería usarse?
 
 ## Respuesta
 
 La práctica fundamental que mejor funciona en el desarrollo de un proyecto es la **combinación del Product Vision Board con la definición y desglose en Épicas e Historias de Usuario**:
 
-- **Descomposición Modular del Alcance:** Aporta un gran valor al tomar un sistema grande, pesado y complejo, y dividirlo en pedazos cortos y ligeros (*incrementos*). Esto permite al equipo entender la lógica interna del negocio paso a paso, desde adentro hacia afuera.
-
-- **Validación Mediante Prototipado Claro:** Tener historias de usuario bien acotadas y priorizadas facilita el paso hacia la creación de un prototipo que permite ver la funcionalidad de las cosas de forma clara e intuitiva. Ver la funcionalidad plasmada en una interfaz viva ayuda a validar las reglas de negocio con los usuarios finales antes de invertir esfuerzo en código de producción.
+- **Descomposición Modular del Alcance:** Aporta un gran valor al tomar un sistema grande, pesado y complejo, y dividirlo en pedazos cortos y ligeros (*incrementos*). Esto permite al equipo entender mejor el problema y priorizar entregas.
+- **Validación Mediante Prototipado Claro:** Tener historias de usuario bien acotadas y priorizadas facilita el paso hacia la creación de un prototipo que permite ver la funcionalidad de las cosas de forma tangible.
 
 # 2. ¿Qué técnica de gestión de requisitos tomó/falló y cómo se podría detectar?
 
@@ -174,11 +175,9 @@ La práctica fundamental que mejor funciona en el desarrollo de un proyecto es l
 
 Falló el uso de **software de modelado pesado e inflexible** junto con la **burocracia documental tradicional de las Solicitudes de Cambio (RFC)**:
 
-- **Fricción en el Modelado:** El uso de herramientas de modelado rígidas o pesadas resulta enredado y poco ágil. Aunque el diseño de diagramas es una técnica muy útil, existen opciones modernas más flexibles y ágiles para transmitir la información con claridad y alcanzar resultados equivalentes.
-
-- **Sobrecarga por Solicitudes de Cambio (RFC):** El documento de solicitud de cambios es importante para la trazabilidad, pero gestionarlo en formatos tradicionales se convierte en una carga temporal que frena el desarrollo continuo.
-
-- **Cómo se detectó:** Se identificó por el retraso en el ritmo de iteración y la fricción del equipo ante la documentación. Se puede optimizar implementando un flujo más ágil (por ejemplo, gestionando cambios mediante *issues* y *Pull Requests* etiquetados en GitHub) para mantener la documentación al día sin detener el avance del proyecto.
+- **Fricción en el Modelado:** El uso de herramientas de modelado rígidas o pesadas resulta enredado y poco ágil. Aunque el diseño de diagramas es una técnica muy útil, existen opciones modernas y más prácticas.
+- **Sobrecarga por Solicitudes de Cambio (RFC):** El documento de solicitud de cambios es importante para la trazabilidad, pero gestionarlo en formatos tradicionales se convierte en una carga temporal y de coordinación.
+- **Cómo se detectó:** Se identificó por el retraso en el ritmo de iteración y la fricción del equipo ante la documentación. Se puede optimizar implementando un flujo más ágil.
 
 # 3. ¿Qué haríamos diferente en el proceso de gestión de requisitos desde el inicio?
 
@@ -186,8 +185,6 @@ Falló el uso de **software de modelado pesado e inflexible** junto con la **bur
 
 Desde el inicio del proyecto, implementaría una **formulación temprana de la visión y del alcance de la documentación**, respaldada por **herramientas de modelado ágiles y prototipado exploratorio**:
 
-- **Claridad Temprana del Alcance:** Utilizaría el **Product Vision Board** desde la fase inicial. Resulta una herramienta maravillosa para poner un punto de partida claro en cualquier proyecto, ya que permite desglosar la información de manera ágil y definir el alcance antes de la especificación detallada.
-
-- **Herramientas de Diagramación más Prácticas:** Para proyectos con arquitecturas complejas (como el *Simulador de Conducción*), optaría por motores de diagramación más prácticos, visuales y fáciles de entender por todo el equipo.
-
-- **Prototipos Funcionales Tempranos:** Incorporaría prototipos ya funcionales desde las primeras etapas. Tener un vistazo a futuro de cómo pueden ser las soluciones que el proyecto necesitará permite anticipar requerimientos reales y ajustar el rumbo a tiempo con base en la experiencia directa.
+- **Claridad Temprana del Alcance:** Utilizaría el **Product Vision Board** desde la fase inicial. Resulta una herramienta maravillosa para poner un punto de partida claro en cualquier proyecto.
+- **Herramientas de Diagramación más Prácticas:** Para proyectos con arquitecturas complejas, optaría por motores de diagramación más prácticos, visuales y fáciles de mantener.
+- **Prototipos Funcionales Tempranos:** Incorporaría prototipos ya funcionales desde las primeras etapas. Tener un vistazo a futuro de cómo pueden ser las soluciones que el proyecto necesitará permite reducir ambigüedad y acelerar la validación.
